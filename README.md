@@ -47,9 +47,9 @@ Prototypischer Aufbau:
 
 ## Programmierung Arduino Nano
 
-Der [Sketch LevelSensor.ino](LevelSensor/LevelSensor.ino) ist entsprechend des Anwendungsfalls zu konfgurieren und auf den Arduino Nano zu laden.
+Der [Sketch levelsensor.ino](levelsensor/levelsensor.ino) ist entsprechend des Anwendungsfalls zu konfgurieren und auf den Arduino Nano zu laden.
 
-Um nur das HomeMatic-Sendemodul zu testen, kann der [Sketch TransmitterTest.ino](TransmitterTest/TransmitterTest.ino) verwendet werden.
+Um nur das HomeMatic-Sendemodul zu testen, kann der [Sketch transmittertest.ino](transmittertest/transmittertest.ino) verwendet werden.
 
 ## Projektierung CCU
 
