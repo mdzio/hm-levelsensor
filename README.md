@@ -146,3 +146,6 @@ Falls häufig ungültige Messungen (Wert 255) signalisiert werden, können schri
 3. *DISTANCE_GOOD_QUALITY* auf 0.03 erhöhen. Dadurch wird der Gutbereich für Pings vergrößert. Die Messwertgenauigkeit sinkt dadurch.
 4. *NUM_GOOD_SAMPLES* auf 3 verringern. Dadurch werden weniger gute Pings für einen gültigen Messwert benötigt. Die Messwertgenauigkeit sinkt dadurch.
 
+##  Lizenz und Haftungsausschluss
+
+Dieses Projekt steht unter der [GNU General Public License V3](LICENSE.txt).
