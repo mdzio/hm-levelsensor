@@ -12,8 +12,19 @@ Mit wenigen Modulen kann eine Ultraschall-Füllstandsmessung für das [Hausautom
 
 * Arduino Nano V3
 * HomeMatic 8-bit Sendemodul (HM-MOD-EM-8Bit)
-* Ultraschall-Modul mit wasserdichtem Sensor (z.B. JSN-SR04T)
+* Ultraschall-Modul mit wasserdichtem Sensor (Liste siehe unten)
 * USB-Netzteil inkl. Mini-USB-Kabel
+
+### Mögliche Ultraschall-Module
+
+(Die Angaben sind ungeprüft aus dem Internet zusammengetragen.)
+
+|Typ|Min. Abstand [cm]|Max. Abstand [cm]|Auflösung [mm]|Öffnungswinkel [°]|Bemerkungen|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|JSN-SR04T bzw. TE501|25|450|5|<50|Wasserdichter abgesetzter Sensor; im Einsatz beim Autor|
+|US-100|2|450|1|<15|angeblich temperaturkompensiert|
+|HY-SRF05|2|450|2|<15||
+|HC-SR04|2|450|3|<15||
 
 ## Verschaltung der Module
 
@@ -45,11 +56,32 @@ Prototypischer Aufbau:
 
 ![Prototyp](doc/prototype.jpg "Prototyp")
 
+## Montage Ultraschallsensor
+
+Folgendes ist bei der Montage des Ultraschallsensors zu beachten:
+* Unbedingt den minimalen Abstand zur Wasseroberfläche für das verwendete Ultraschallmodul beachten (z.B. 25cm für JSN-SR04).
+* Vor dem Ultraschallmodul muss der Messkegel frei von Hindernissen sein.
+* Die Reflexionsfläche (Wasseroberfläche) muss senkrecht zur Achse des Ultraschallmoduls sein.
+
 ## Programmierung Arduino Nano
 
-Der [Sketch levelsensor.ino](levelsensor/levelsensor.ino) ist entsprechend dem Anwendungsfall zu konfgurieren und auf den Arduino Nano zu laden.
+Der [Sketch levelsensor.ino](levelsensor/levelsensor.ino) ist entsprechend dem Anwendungsfall zu konfgurieren und auf den Arduino Nano zu laden. Dafür wird die [Arduino IDE](https://www.arduino.cc/en/main/software) benötigt.
 
-Um nur das HomeMatic-Sendemodul zu testen, kann der [Sketch transmittertest.ino](transmittertest/transmittertest.ino) verwendet werden.
+### Konfiguration
+
+Am Anfang des Sketches befinden sich etliche Konfigurationsoptionen. Folgende Optionen müssen mindestens für die eigene Anwendung angepasst werden:
+
+|Name|Einheit|Bedeutung|
+|---|---|---|
+|AIR_TEMPERATURE|°C|Lufttemperatur im Tank|
+|AIR_HUMIDITY|%|Luftfeuchtigkeit im Tank|
+|DISTANCE_RANGE_BEGIN|m|Messbereichsanfang: Abstand vom Boden des Tanks bis zum Sensor. Es wird maximal 5,50m unterstützt.|
+|DISTANCE_RANGE_END|m|Messbereichsende: Abstand der Wasseroberfläche des voll gefüllten Tanks bis zum Sensor. Es ist der Mindestabstand des eingesetzten Ultraschallmoduls zu beachten.|
+|DISTANCE_OFFSET|m|Korrekturoffset für das eingesetzte Ultraschallmodul. Dieser Wert wird zum gemessenen Wert hinzuaddiert.|
+
+### Testen des HomeMatic-Sendemoduls
+
+Um nur das HomeMatic-Sendemodul zu testen, kann der [Sketch transmittertest.ino](transmittertest/transmittertest.ino) verwendet werden. Dieser Sketch sendet verschiedene Bit-Muster an das HomeMatic-Modul.
 
 ## Projektierung CCU
 
@@ -75,7 +107,7 @@ In der CCU ist folgendes Programm für die Messwertauswertung zu erstellen:
 
 ![CCU Programm](doc/ccu-program.png "CCU Programm")
 
-Folgendes Skript ist im Dann-Zweig einzutragen. Die Konfiguration ist entsprechend dem Anwendungsfall anzupassen:
+Folgendes Skript ist im Dann-Zweig einzutragen. Die Konfiguration (mindestens die Optionen _rangeBegin_ und _rangeEnd_) ist entsprechend dem Anwendungsfall anzupassen:
 
 ```
 ! configuration
@@ -98,3 +130,19 @@ if (sv && src) {
     }
 }
 ```
+
+Eine ungültige Messung kann bei Bedarf auch anders behandelt werden. Anstatt `sv.State(errorValue);` kann eine beliebige andere Aktion ausgeführt werden. Beispiele:
+* Ungültige Messung ignorieren.
+* Alarmvariable setzen.
+
+## Fehlersuche
+
+### Häufige ungültige Messungen
+
+Falls häufig ungültige Messungen (Wert 255) signalisiert werden, können schrittweise folgende Optionen angepasst werden:
+
+1. *NUM_SKIP_ECHOES* auf 3 erhöhen. Dadurch wird länger abgewartet bis unerwünschte weitere Echos eines Pings abgeklungen sind.
+2. *NUM_SAMPLES* auf 15 erhöhen. Dadurch werden mehr Pings für eine Messung ausgeführt.
+3. *DISTANCE_GOOD_QUALITY* auf 0.03 erhöhen. Dadurch wird der Gutbereich für Pings vergrößert. Die Messwertgenauigkeit sinkt dadurch.
+4. *NUM_GOOD_SAMPLES* auf 3 verringern. Dadurch werden weniger gute Pings für einen gültigen Messwert benötigt. Die Messwertgenauigkeit sinkt dadurch.
+
