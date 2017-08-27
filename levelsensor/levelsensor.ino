@@ -131,6 +131,7 @@ uint16_t ping() {
   // measure pulse length
   auto t = pulseIn(ECHO_PIN, HIGH, TIME_MAX) * 2;
   interrupts();
+  if (t == 0) return INVALID_MEASUREMENT;
   t += TIME_OFFSET;
   return t;
 }
