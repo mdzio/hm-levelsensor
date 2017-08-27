@@ -74,7 +74,7 @@ Am Anfang des Sketches befinden sich etliche Konfigurationsoptionen. Folgende Op
 |Name|Einheit|Bedeutung|
 |---|---|---|
 |AIR_TEMPERATURE|°C|Lufttemperatur im Tank|
-|AIR_HUMIDITY|%|Luftfeuchtigkeit im Tank|
+|AIR_HUMIDITY|%|Luftfeuchtigkeit im Tank (Der Effekt ist sehr gering.)|
 |DISTANCE_RANGE_BEGIN|m|Messbereichsanfang: Abstand vom Boden des Tanks bis zum Sensor. Es wird maximal 5,50m unterstützt.|
 |DISTANCE_RANGE_END|m|Messbereichsende: Abstand der Wasseroberfläche des voll gefüllten Tanks bis zum Sensor. Es ist der Mindestabstand des eingesetzten Ultraschallmoduls zu beachten.|
 |DISTANCE_OFFSET|m|Korrekturoffset für das eingesetzte Ultraschallmodul. Dieser Wert wird zum gemessenen Wert hinzuaddiert.|
@@ -137,6 +137,32 @@ Eine ungültige Messung kann bei Bedarf auch anders behandelt werden. Anstatt `s
 
 ## Fehlersuche
 
+### Diagnose-LED
+
+Während der Messung wird die LED am Arduino Nano eingeschaltet. Nach Abschluss einer erfolgreichen Messung wird diese wieder ausgeschaltet. Falls die Messung nicht erfolgreich war, blinkt die LED drei mal in schneller Folge.
+
+### Debug-Meldungen
+
+Falls die Option *DEBUG_ENABLE* auf *true* gesetzt ist, werden Debug-Meldungen über die serielle Schnittstelle bzw. dem USB-Port gesendet. Die Baudrate kann mit der Option *BAUD_RATE* konfiguriert werden. In der *Arduino IDE* kann über den Menüeintrag *Werkzeuge* → *Serieller Monitor* ein Ausgabefenster geöffnet werden, das alle Debug-Meldungen anzeigt.
+
+Beispielausgabe:
+```
+*** ULTRA SONIC LEVEL SENSOR ***
+DISTANCE_RANGE_BEGIN[mm]: 1980
+DISTANCE_RANGE_END  [mm]: 310
+TIME_RANGE_BEGIN  [µs/2]: 23459
+TIME_RANGE_END    [µs/2]: 3672
+
+MEASURED[µs/2]: 6905,7491,7491,7491,7491,7491,7491,7491,7491,7491
+IN RANGE[µs/2]: 6905,7491,7491,7491,7491,7491,7491,7491,7491,7491
+SORTED  [µs/2]: 6905,7491,7491,7491,7491,7491,7491,7491,7491,7491
+MEDIAN  [µs/2]: 7491
+CLEANED [µs/2]: 7491,7491,7491,7491,7491,7491,7491,7491,7491
+AVERAGE [µs/2]: 7491
+DISTANCE  [mm]: 633
+OUT           : 205
+```
+
 ### Häufige ungültige Messungen
 
 Falls häufig ungültige Messungen (Wert 255) signalisiert werden, können schrittweise folgende Optionen angepasst werden:
@@ -145,6 +171,10 @@ Falls häufig ungültige Messungen (Wert 255) signalisiert werden, können schri
 2. *NUM_SAMPLES* auf 15 erhöhen. Dadurch werden mehr Pings für eine Messung ausgeführt.
 3. *DISTANCE_GOOD_QUALITY* auf 0.03 erhöhen. Dadurch wird der Gutbereich für Pings vergrößert. Die Messwertgenauigkeit sinkt dadurch.
 4. *NUM_GOOD_SAMPLES* auf 3 verringern. Dadurch werden weniger gute Pings für einen gültigen Messwert benötigt. Die Messwertgenauigkeit sinkt dadurch.
+
+## Unterstützung
+
+Fragen zum HM-LevelSensor können im [HomeMatic-Forum](https://homematic-forum.de/forum/viewtopic.php?f=18&t=38264) gestellt werden.
 
 ##  Lizenz und Haftungsausschluss
 
