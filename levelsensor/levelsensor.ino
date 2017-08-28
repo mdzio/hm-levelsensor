@@ -43,27 +43,27 @@ const auto ECHO_PIN = A1;
 
 // pause between measurements [s]
 // (do not stress the HomeMatic transmitter to much, e.g. use 180 seconds)
-const uint32_t MEASUREMENT_PAUSE = 120;
+const uint32_t MEASUREMENT_PAUSE = 60;
 
 // start of range [m]
 // (maximum supported: 5.5m)
-const auto DISTANCE_RANGE_BEGIN = 2.33;
+const auto DISTANCE_RANGE_BEGIN = 1.67 + 0.31;
 // end of range [m]
 // (maximum supported: 5.5m, a value below DISTANCE_RANGE_BEGIN is allowed)
-const auto DISTANCE_RANGE_END = 0.32;
+const auto DISTANCE_RANGE_END = 0.31;
 // good quality distance [m]
 // (max. distance from median, only good values are included in the final result)
-const auto DISTANCE_GOOD_QUALITY = 0.015;
+const auto DISTANCE_GOOD_QUALITY = 0.02;
 // the offset is added to the measured value [m]
 // (the value depends on the used ultra sonic module, e.g. 0.017m for JSN-SR04T)
 const auto DISTANCE_OFFSET = 0.017;
 
 // number of additional echoes to skip
-const auto NUM_SKIP_ECHOES = 1;
+const auto NUM_SKIP_ECHOES = 5;
 // number of samples
 const auto NUM_SAMPLES = 10;
 // mininum number of good samples;
-const auto NUM_GOOD_SAMPLES = 5;
+const auto NUM_GOOD_SAMPLES = 4;
 
 // enable debug messages over serial port
 const auto DEBUG_ENABLE = true;

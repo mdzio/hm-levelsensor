@@ -167,10 +167,10 @@ OUT           : 205
 
 Falls häufig ungültige Messungen (Wert 255) signalisiert werden, können schrittweise folgende Optionen angepasst werden:
 
-1. *NUM_SKIP_ECHOES* auf 3 erhöhen. Dadurch wird länger abgewartet bis unerwünschte weitere Echos eines Pings abgeklungen sind.
-2. *NUM_SAMPLES* auf 15 erhöhen. Dadurch werden mehr Pings für eine Messung ausgeführt.
-3. *DISTANCE_GOOD_QUALITY* auf 0.03 erhöhen. Dadurch wird der Gutbereich für Pings vergrößert. Die Messwertgenauigkeit sinkt dadurch.
-4. *NUM_GOOD_SAMPLES* auf 3 verringern. Dadurch werden weniger gute Pings für einen gültigen Messwert benötigt. Die Messwertgenauigkeit sinkt dadurch.
+1. *NUM_SKIP_ECHOES* auf 8 erhöhen. Dadurch wird länger abgewartet bis unerwünschte weitere Echos eines Pings abgeklungen sind.
+2. *DISTANCE_GOOD_QUALITY* auf 0.03 erhöhen. Dadurch wird der Gutbereich für Pings vergrößert. Die Messwertgenauigkeit sinkt dadurch. Insbesondere bei unruhigen Wasseroberflächen sollte der Wert erhöht werden.
+3. *NUM_GOOD_SAMPLES* auf 3 verringern. Dadurch werden weniger gute Pings für einen gültigen Messwert benötigt. Die Messwertgenauigkeit sinkt dadurch.
+4. *NUM_SAMPLES* auf 15 erhöhen. Dadurch werden mehr Pings für eine Messung ausgeführt.
 
 ## Unterstützung
 
