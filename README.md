@@ -8,6 +8,10 @@ Mit wenigen Modulen kann eine Ultraschall-Füllstandsmessung für das [Hausautom
 * Durch die fast vollständige Ausnutzung der 8 Bit des Sendemoduls ergibt sich eine maximale Abweichung von 0,2%. Bei einer 6000l Zisterne bedeutet das eine maximale Abweichung von nur 12l.
 * Ein spezieller Fehlerwert (255) kennzeichnet eine fehlerhafte Messung oder einen defekten Sensor.
 
+Anhand des folgenden vergrößerten Ausschnitts einer Trendkurve einer 6000l-Zisterne ist die hohe Stabilität der Messung erkennbar:
+
+![Trendkurve](doc/sensor-recording.png)
+
 ## Bauteileliste
 
 * Arduino Nano V3
