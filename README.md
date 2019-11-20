@@ -47,14 +47,14 @@ Anschluss HomeMatic-Sendemodul:
 |:---:|:---:|
 |3,5-12V|5V|
 |GND|GND|
-|INH1|8 (PB0)|
-|INH2|9 (PB1)|
-|INH3|10 (PB2)|
-|INH4|11 (PB3)|
-|INH5|12 (PB4)|
-|INH6|5 (PD5)|
-|INH7|6 (PD6)|
-|INH8|7 (PD7)|
+|INH0|D8 (PB0)|
+|INH1|D9 (PB1)|
+|INH2|D10 (PB2)|
+|INH3|D11 (PB3)|
+|INH4|D12 (PB4)|
+|INH5|D5 (PD5)|
+|INH6|D6 (PD6)|
+|INH7|D7 (PD7)|
 
 Prototypischer Aufbau:
 
